@@ -1,10 +1,10 @@
 /* Contact section: shows business details + a form that submits via a static-friendly provider (GitHub Pages-safe). */
 "use client";
 
-import Image from "next/image";
 import { useMemo, useState } from "react";
 import Reveal from "@/components/Reveal";
 import { contactSchema, type ContactPayload } from "@/lib/contact";
+import PublicImg from "@/components/PublicImg";
 
 type ContactValues = ContactPayload;
 
@@ -120,8 +120,8 @@ export default function ContactSection() {
       <div className="mt-10 grid gap-8 lg:grid-cols-12">
         <Reveal className="lg:col-span-5">
           <div className="glass overflow-hidden rounded-3xl">
-            <Image
-              src="/assets/business-card.jpeg"
+            <PublicImg
+              src="assets/business-card.jpeg"
               alt="Business card"
               width={920}
               height={640}

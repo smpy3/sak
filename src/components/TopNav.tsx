@@ -2,8 +2,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { useCallback } from "react";
+import PublicImg from "@/components/PublicImg";
 
 const links = [
   { id: "diamonds", label: "Diamonds" },
@@ -35,12 +35,11 @@ export default function TopNav() {
           aria-label="Go to top"
         >
           <div className="relative h-8 w-8 overflow-hidden rounded-xl ring-soft">
-            <Image
-              src="/assets/business-card.jpeg"
+            <PublicImg
+              src="assets/business-card.jpeg"
               alt="S. Adityakumar & Co."
-              fill
-              className="object-cover"
-              priority
+              className="absolute inset-0 h-full w-full object-cover"
+              loading="eager"
             />
           </div>
           <div className="hidden sm:block">

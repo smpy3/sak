@@ -1,5 +1,5 @@
 /* Footer: quick trust recap + simple close so the page ends strong. */
-import Image from "next/image";
+import PublicImg from "@/components/PublicImg";
 
 export default function Footer() {
   return (
@@ -8,11 +8,11 @@ export default function Footer() {
         <div className="md:col-span-5">
           <div className="flex items-center gap-3">
             <div className="relative h-10 w-10 overflow-hidden rounded-xl border border-white/10">
-              <Image
-                src="/assets/business-card.jpeg"
+              <PublicImg
+                src="assets/business-card.jpeg"
                 alt="S. Adityakumar & Co."
-                fill
-                className="object-cover"
+                className="absolute inset-0 h-full w-full object-cover"
+                loading="lazy"
               />
             </div>
             <div>

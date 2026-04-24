@@ -9,9 +9,9 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import Image from "next/image";
 import { useRef } from "react";
 import Reveal from "@/components/Reveal";
+import PublicImg from "@/components/PublicImg";
 
 function DiamondMark() {
   // SVG keeps the hero lightweight but still “3D-ish”.
@@ -304,13 +304,13 @@ export default function Hero() {
             {/* The business card image builds trust instantly (real company, real contact). */}
             <div className="mt-6 flex justify-center">
               <div className="glass relative w-full max-w-[460px] overflow-hidden rounded-2xl">
-                <Image
-                  src="/assets/business-card.jpeg"
+                <PublicImg
+                  src="assets/business-card.jpeg"
                   alt="S. Adityakumar & Co. contact card"
                   width={920}
                   height={520}
                   className="h-auto w-full object-cover"
-                  priority
+                  loading="eager"
                 />
               </div>
             </div>

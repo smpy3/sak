@@ -1,8 +1,8 @@
 /* Owners section: introduces both brothers with a professional photo + trust-focused copy. */
 "use client";
 
-import Image from "next/image";
 import Reveal from "@/components/Reveal";
+import PublicImg from "@/components/PublicImg";
 
 export default function Owners() {
   return (
@@ -26,13 +26,13 @@ export default function Owners() {
       <div className="mt-10 grid gap-8 lg:grid-cols-12">
         <Reveal className="lg:col-span-7">
           <div className="glass relative overflow-hidden rounded-3xl">
-            <Image
-              src="/assets/owners.jpeg"
+            <PublicImg
+              src="assets/owners.jpeg"
               alt="Ghanshyam Modi and Rupesh Modi"
               width={1600}
               height={1000}
               className="h-auto w-full object-cover"
-              priority={false}
+              loading="lazy"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6">
