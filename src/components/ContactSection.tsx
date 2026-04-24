@@ -1,4 +1,4 @@
-/* Contact section: shows business details + a form that emails you (via /api/contact). */
+/* Contact section: shows business details + a form that submits via a static-friendly provider (GitHub Pages-safe). */
 "use client";
 
 import Image from "next/image";
@@ -43,26 +43,55 @@ export default function ContactSection() {
     }
 
     try {
-      // We call our Route Handler so submissions reach your email securely.
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(parsed.data),
-      });
-      const data = (await res.json().catch(() => null)) as
-        | { ok: true; message: string }
-        | { ok: false; message: string }
-        | null;
+      // GitHub Pages is static (no server), so we post to a form provider (Formspree) if configured.
+      const endpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
 
-      if (!res.ok || !data || data.ok !== true) {
+      // Honeypot: if filled, treat as spam (still show success).
+      if (parsed.data.website && parsed.data.website.length > 0) {
+        setStatus({ type: "ok", msg: "Sent. We’ll reply with options shortly." });
+        return;
+      }
+
+      if (!endpoint) {
+        // Fallback: open an email draft so you still get the lead without any backend.
+        const subject = encodeURIComponent(
+          `[Website] ${parsed.data.interest} — ${parsed.data.name}`,
+        );
+        const body = encodeURIComponent(
+          [
+            `Name: ${parsed.data.name}`,
+            `Company: ${parsed.data.company ?? ""}`,
+            `Email: ${parsed.data.email}`,
+            `Phone: ${parsed.data.phone ?? ""}`,
+            "",
+            parsed.data.message,
+          ]
+            .filter(Boolean)
+            .join("\n"),
+        );
+        window.location.href = `mailto:ghanshyammodi007@gmail.com,rupeshvmodi@gmail.com?subject=${subject}&body=${body}`;
         setStatus({
-          type: "err",
-          msg: data?.message ?? "Something went wrong. Please try again.",
+          type: "ok",
+          msg: "Opened your email app to send the request.",
         });
         return;
       }
 
-      setStatus({ type: "ok", msg: data.message });
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "content-type": "application/json", accept: "application/json" },
+        body: JSON.stringify(parsed.data),
+      });
+
+      if (!res.ok) {
+        setStatus({
+          type: "err",
+          msg: "Could not send right now. Please try again or email us directly.",
+        });
+        return;
+      }
+
+      setStatus({ type: "ok", msg: "Sent. We’ll reply with options shortly." });
       setValues((v) => ({ ...v, message: "" }));
     } catch {
       setStatus({
