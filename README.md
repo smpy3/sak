@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Portfolio Website — S. Adityakumar & Co.
 
-## Getting Started
+Premium scroll-driven Next.js + Tailwind site for a diamond seller specializing in Light Brown diamonds (30+ years in business).
 
-First, run the development server:
+Local Setup
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1) Install deps
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+  npm install
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2) Configure contact email notifications
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Copy `.env.example` → `.env.local`
+- Fill in SMTP creds (for Gmail: enable 2FA, then create an “App Password”)
 
-## Learn More
+  copy .env.example .env.local
 
-To learn more about Next.js, take a look at the following resources:
+3) Run the dev server
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  npm run dev
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Open http://localhost:3000
 
-## Deploy on Vercel
+Contact Form
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- UI: `src/components/ContactSection.tsx`
+- API: `src/app/api/contact/route.ts`
+- Email sender: `src/lib/sendContactEmail.ts`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If SMTP env vars are missing, the API returns an error telling you to configure `.env.local`.
